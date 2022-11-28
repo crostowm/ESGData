@@ -3,12 +3,15 @@ package com.esg.esgdata.model.prep;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
+@MappedSuperclass
 public abstract class Prep {
     @Id @Column(length = 50)
     protected String description;
+    @Column
     protected String unitType;
+    @Column
     protected PrepType prepType;
 
     public Prep(){};

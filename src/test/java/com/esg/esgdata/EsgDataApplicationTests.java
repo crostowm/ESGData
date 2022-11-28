@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -90,6 +91,17 @@ class EsgDataApplicationTests {
 	}
 
 	@Test
+	void createPrepItemTable()
+	{
+		ArrayList<PrepItem> items = new ArrayList<>();
+		items.add(new PrepItem("Vito", "pack", 9, 555, PrepType.SLICING));
+		items.add(new PrepItem("Thousand Island Sauce", "bottle", 3, 1000, PrepType.LTO));
+		for (PrepItem item : items) {
+			prepDao.save(item);
+		}
+	}
+
+	@Test
 	void getAllPrepItems()
 	{
 		List<PrepItem> items = prepDao.getAllPrepItems();
@@ -98,6 +110,16 @@ class EsgDataApplicationTests {
 			System.out.println(item.toString());
 		}
 	}
+
+	@Test
+	void getAllPrepItemsAndDeleteThem()
+	{
+		List<PrepItem> items = prepDao.getAllPrepItems();
+		for (PrepItem item : items) {
+			prepDao.delete(item.getDescription());
+		}
+	}
+
 	@Test
 	void addPrepTemplate()
 	{
@@ -106,12 +128,34 @@ class EsgDataApplicationTests {
 	}
 
 	@Test
+	void createPrepTemplateTable()
+	{
+		ArrayList<PrepTemplate> templates = new ArrayList<>();
+		templates.add(new PrepTemplate("Lettuce", "bin", 500, PrepType.VEG, 3, true, true));
+		templates.add(new PrepTemplate("Tomatoes", "bin", 1200, PrepType.VEG, 3, true, true));
+		templates.add(new PrepTemplate("Pickles", "bin", 1200, PrepType.VEG, 3, true, true));
+		templates.add(new PrepTemplate("Cucumbers", "bin", 3000, PrepType.VEG, 3, true, true));
+		templates.add(new PrepTemplate("Onions", "bin", 1600, PrepType.VEG, 3, true, true));
+		for (PrepTemplate template : templates) {
+			prepDao.save(template);
+		}
+	}
+	@Test
 	void getAllPrepTemplates()
 	{
 		List<PrepTemplate> templates = prepDao.getAllPrepTemplates();
 		System.out.println(templates.size());
 		for (PrepTemplate template : templates) {
 			System.out.println(template.toString());
+		}
+	}
+
+	@Test
+	void getAllPrepTemplatesAndDeleteThem()
+	{
+		List<PrepTemplate> templates = prepDao.getAllPrepTemplates();
+		for (PrepTemplate template : templates) {
+			prepDao.delete(template.getDescription());
 		}
 	}
 }

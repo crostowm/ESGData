@@ -1,10 +1,13 @@
 package com.esg.esgdata.model.prep;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class PrepTemplate extends Prep {
+    @Column
     private int unitDollarValue, numShiftsToPrepFor;
+    @Column
     private boolean includeCurrentShift, isPermanent;
 
     public PrepTemplate() {}

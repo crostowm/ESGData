@@ -1,11 +1,15 @@
 package com.esg.esgdata.model.prep;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class PrepItem extends Prep {
+    @Column
     private float numToPrep, calcToPrep;
+    @Column
     private int unitDollarValue;
+    @Column
     private boolean isComplete;
 
     public PrepItem(){};
