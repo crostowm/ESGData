@@ -6,8 +6,6 @@ import com.esg.esgdata.model.catering.CateringDao;
 import com.esg.esgdata.model.catering.CateringItem;
 import com.esg.esgdata.model.catering.CateringOrder;
 import com.esg.esgdata.model.catering.CateringType;
-import com.esg.esgdata.model.daydata.DayData;
-import com.esg.esgdata.model.daydata.DayDataDao;
 import com.esg.esgdata.model.prep.*;
 import com.esg.esgdata.model.setting.Setting;
 import com.esg.esgdata.model.setting.SettingDao;
@@ -46,9 +44,6 @@ class EsgDataApplicationTests {
 
 	@Autowired
 	CashItemDao cashItemDao;
-
-	@Autowired
-	DayDataDao dayDataDao;
 
 	@Test
 	void addSetting()
@@ -102,7 +97,7 @@ class EsgDataApplicationTests {
 		prepDao.save(new PrepItem("Thousand Island Sauce", "bottle", PrepType.LTO, LocalDate.now(), 3, 500));
 		prepDao.save(new PrepItem("Hot Peppers", "bin", PrepType.VEG, LocalDate.now(), 3, 1500));
 
-		CateringOrder order = new CateringOrder(10, 0, 231);
+		CateringOrder order = new CateringOrder(LocalDate.now(), 10, 0, 231);
 		order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
 		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
 		cateringDao.save(order);
@@ -222,7 +217,7 @@ class EsgDataApplicationTests {
 	@Test
 	void addCateringOrder()
 	{
-		CateringOrder order = new CateringOrder(10, 0, 231);
+		CateringOrder order = new CateringOrder(LocalDate.now(), 10, 0, 231);
 		order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
 		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
 		cateringDao.save(order);

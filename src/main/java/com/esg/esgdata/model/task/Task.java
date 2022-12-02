@@ -8,7 +8,7 @@ public abstract class Task implements Serializable {
 
     @Id @Column(length = 10)
     private String taskCode;
-
+    @Enumerated(EnumType.STRING)
     protected TaskCategory category;
     protected String shortDesc, longDesc;
     protected int startTimeHr, startTimeMin, dueTimeHr, dueTimeMin;

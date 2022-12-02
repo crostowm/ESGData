@@ -2,6 +2,7 @@ package com.esg.esgdata.model.catering;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class CateringOrder  implements Comparable<CateringOrder> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private LocalDate date;
     private int dueHour, dueMin;
     private double dollarValue;
     @OneToMany(cascade = CascadeType.ALL)
@@ -18,7 +20,8 @@ public class CateringOrder  implements Comparable<CateringOrder> {
 
     public CateringOrder(){}
 
-    public CateringOrder(int dueHour, int dueMin, double dollarValue) {
+    public CateringOrder(LocalDate date, int dueHour, int dueMin, double dollarValue) {
+        this.date = date;
         this.dueHour = dueHour;
         this.dueMin = dueMin;
         this.dollarValue = dollarValue;
@@ -50,6 +53,38 @@ public class CateringOrder  implements Comparable<CateringOrder> {
 
     public void setCateringItems(ArrayList<CateringItem> items)
     {
+        this.items = items;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setDueHour(int dueHour) {
+        this.dueHour = dueHour;
+    }
+
+    public void setDueMin(int dueMin) {
+        this.dueMin = dueMin;
+    }
+
+    public void setDollarValue(double dollarValue) {
+        this.dollarValue = dollarValue;
+    }
+
+    public void setItems(List<CateringItem> items) {
         this.items = items;
     }
 }

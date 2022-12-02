@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,17 @@ public class CateringDao {
         Streamable.of(cateringOrderRepository.findAll())
                 .forEach(order -> {
                     orders.add(order);
+                });
+        return orders;
+    }
+
+    public List<CateringOrder> getAllCateringOrdersForDate(LocalDate date)
+    {
+        List<CateringOrder> orders = new ArrayList<>();
+        Streamable.of(cateringOrderRepository.findAll())
+                .forEach(order -> {
+                    if(order.getDate().equals(date))
+                        orders.add(order);
                 });
         return orders;
     }
