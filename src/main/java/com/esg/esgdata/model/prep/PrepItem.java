@@ -2,9 +2,17 @@ package com.esg.esgdata.model.prep;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-public class PrepItem extends Prep {
+@IdClass(PrepId.class)
+public class PrepItem extends Prep implements Serializable {
+    @Id
+    LocalDate date;
+
     @Column
     private float numToPrep, calcToPrep;
     @Column
@@ -14,16 +22,17 @@ public class PrepItem extends Prep {
 
     public PrepItem(){};
 
-    public PrepItem(String description, String unitType, float calcToPrep, int unitDollarValue, PrepType prepType)
+    public PrepItem(String description, String unitType, PrepType prepType, LocalDate date, float calcToPrep, int unitDollarValue)
     {
         super(description, unitType, prepType);
+        this.date = date;
         this.calcToPrep = calcToPrep;
         this.numToPrep = calcToPrep;
         this.unitDollarValue = unitDollarValue;
         isComplete = false;
     }
 
-    public PrepItem(String description, String unitType, float calcToPrep, PrepType prepType)
+    public PrepItem(String description, String unitType, PrepType prepType, float calcToPrep)
     {
         super(description, unitType, prepType);
         this.calcToPrep = calcToPrep;
@@ -70,8 +79,12 @@ public class PrepItem extends Prep {
     public String toString()
     {
         String ret = "";
-        ret += getDescription() + " " + getNumToPrep() + "/" + getCalcToPrep() + " $" + getUnitDollarValue() + "/" + getUnitType() + " : " + (isComplete? "complete":"incomplete");
+        ret += getDesc() + " " + getNumToPrep() + "/" + getCalcToPrep() + " $" + getUnitDollarValue() + "/" + getUnitType() + " : " + (isComplete? "complete":"incomplete");
         return ret;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }
 

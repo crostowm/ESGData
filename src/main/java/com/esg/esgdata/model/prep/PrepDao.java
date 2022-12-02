@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,22 @@ public class PrepDao {
         return preps;
     }
 
-    public void delete(String name)
+    public void deleteItem(PrepId prepId)
     {
-        itemRepository.deleteById(name);
+        itemRepository.deleteById(prepId);
+    }
+    public void deleteTemplate(String name)
+    {
+        templateRepository.deleteById(name);
+    }
+
+    public List<PrepItem> getAllPrepItemsForDate(LocalDate date) {
+        List<PrepItem> preps = new ArrayList<>();
+        Streamable.of(itemRepository.findAll())
+                .forEach(prep -> {
+                    if(prep.getDate().equals(date))
+                        preps.add(prep);
+                });
+        return preps;
     }
 }

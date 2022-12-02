@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.esg'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '18'
 
 repositories {
 	mavenCentral()

@@ -1,28 +1,25 @@
 package com.esg.esgdata.model.prep;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class Prep {
     @Id @Column(length = 50)
-    protected String description;
-    @Column
+    protected String desc;
+
     protected String unitType;
-    @Column
+    @Enumerated(EnumType.STRING)
     protected PrepType prepType;
 
     public Prep(){};
     public Prep(String description, String unitType, PrepType prepType) {
-        this.description = description;
+        this.desc = description;
         this.unitType = unitType;
         this.prepType = prepType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
     public String getUnitType() {
         return unitType;
@@ -30,4 +27,5 @@ public abstract class Prep {
     public PrepType getPrepType() {
         return prepType;
     }
+
 }
