@@ -28,6 +28,7 @@ public class PrepItemController {
 
     @PostMapping("/prep-item/save")
     public PrepItem savePrepItems(@RequestBody PrepItem prepItem) {
+        System.out.println("Saving prep: " + prepItem.toString());
         return prepItemDao.save(prepItem);
     }
 }

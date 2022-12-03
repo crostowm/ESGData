@@ -109,6 +109,10 @@ class EsgDataApplicationTests {
 		taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "Short", "Looooooooooooooooooooong", 13, 00, 15, 00, LocalDate.now()));
 		taskDao.save(new TaskItem("adcu1", TaskCategory.ADCU, "Short", "Looooooooooooooooooooong", 18, 30, 22, 00, LocalDate.now()));
 
+		for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
+			allTaskItem.setActive(true);
+			taskDao.save(allTaskItem);
+		}
 		cashItemDao.save(new CashItem(LocalDate.now(), 155.00, 150.00, 600.00, staffDao.getAllEmployees().get(0)));
 		cashItemDao.save(new CashItem(LocalDate.now(), 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(1)));
 		cashItemDao.save(new CashItem(LocalDate.now(), 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(2)));

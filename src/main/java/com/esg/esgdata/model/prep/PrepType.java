@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.stream.Stream;
 
 public enum PrepType {
-    VEG("Veggie"), MISC("Miscellaneous"), LTO("LTO"), SLICING("Slicing");
+    VEG("VEG"), MISC("MISC"), LTO("LTO"), SLICING("SLICING");
 
     private String desc;
 

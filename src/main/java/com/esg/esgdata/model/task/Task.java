@@ -49,4 +49,44 @@ public abstract class Task implements Serializable {
     public String getTaskCode() {
         return taskCode;
     }
+
+    public void setTaskCode(String taskCode) {
+        this.taskCode = taskCode;
+    }
+
+    public void setCategory(TaskCategory category) {
+        this.category = category;
+    }
+
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
+
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
+    }
+
+    public void setStartTimeHr(int startTimeHr) {
+        this.startTimeHr = startTimeHr;
+    }
+
+    public void setStartTimeMin(int startTimeMin) {
+        this.startTimeMin = startTimeMin;
+    }
+
+    public int getDueTimeHr() {
+        return dueTimeHr;
+    }
+
+    public void setDueTimeHr(int dueTimeHr) {
+        this.dueTimeHr = dueTimeHr;
+    }
+
+    public int getDueTimeMin() {
+        return dueTimeMin;
+    }
+
+    public void setDueTimeMin(int dueTimeMin) {
+        this.dueTimeMin = dueTimeMin;
+    }
 }

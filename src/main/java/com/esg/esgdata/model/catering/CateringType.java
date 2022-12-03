@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.stream.Stream;
 
 public enum CateringType {
-    Party_30("30 Piece Party Pack"), Party_18("18 Piece Party Pack"), Box_Lunch("Box Lunch"), Mini_12("Mini-Jimmy 12 Pack"), Sandwiches("Sandwich");
+    Party_30("Party_30"), Party_18("Party_18"), Box_Lunch("Box_Lunch"), Mini_12("Mini_12"), Sandwiches("Sandwiches");
 
     private String desc;
 

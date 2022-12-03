@@ -1,5 +1,8 @@
 package com.esg.esgdata.model.prep;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @IdClass(PrepId.class)
 public class PrepItem extends Prep implements Serializable {
-    @Id
+    @Id @JsonDeserialize(as = LocalDate.class)
     LocalDate date;
 
     @Column
