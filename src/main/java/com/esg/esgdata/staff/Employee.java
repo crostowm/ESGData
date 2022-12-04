@@ -7,7 +7,7 @@ public class Employee {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     protected String firstName, lastName;
-    protected boolean isActive;
+    protected boolean active;
     @Enumerated(EnumType.STRING)
     protected StaffType staffType;
 
@@ -17,7 +17,7 @@ public class Employee {
     {
         this.firstName = firstName;
         this.lastName = lastName;
-        isActive = false;
+        active = false;
         this.staffType = staffType;
     }
 
@@ -36,10 +36,10 @@ public class Employee {
         return firstName.charAt(0) + "" + lastName.charAt(0);
     }
 
-    public boolean isActive() { return isActive; }
+    public boolean isActive() { return active; }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public int getId() {

@@ -14,7 +14,7 @@ public class TaskItem extends Task {
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "completed_by_id")
     private Employee completedBy;
-    private boolean isActive;
+    private boolean active;
 
     public void setCompletedBy(Employee completedBy) {
         this.completedBy = completedBy;
@@ -26,7 +26,7 @@ public class TaskItem extends Task {
         super(taskCode, category, shortDesc, longDesc, startTimeHr, startTimeMin, dueTimeHr, dueTimeMin);
         this.date = date;
         completedBy = null;
-        isActive = false;
+        active = false;
     }
 
     /*
@@ -42,11 +42,11 @@ public class TaskItem extends Task {
         completedBy = employee;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public boolean isActive() {return isActive;}
+    public boolean isActive() {return active;}
 
     public LocalDate getDate() {
         return date;

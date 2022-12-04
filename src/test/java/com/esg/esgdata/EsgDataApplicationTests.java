@@ -6,6 +6,8 @@ import com.esg.esgdata.model.catering.CateringDao;
 import com.esg.esgdata.model.catering.CateringItem;
 import com.esg.esgdata.model.catering.CateringOrder;
 import com.esg.esgdata.model.catering.CateringType;
+import com.esg.esgdata.model.daysales.DaySales;
+import com.esg.esgdata.model.daysales.DaySalesDao;
 import com.esg.esgdata.model.prep.*;
 import com.esg.esgdata.model.setting.Setting;
 import com.esg.esgdata.model.setting.SettingDao;
@@ -45,6 +47,9 @@ class EsgDataApplicationTests {
 	@Autowired
 	CashItemDao cashItemDao;
 
+	@Autowired
+	DaySalesDao daySalesDao;
+
 	@Test
 	void addSetting()
 	{
@@ -57,6 +62,10 @@ class EsgDataApplicationTests {
 	@Test
 	void createTables()
 	{
+		for(int ii = -1; ii > -105; ii--) {
+			daySalesDao.save(new DaySales(LocalDate.now().plusDays(ii), 1200 + (400 * Math.random()), 0, 0, 800 + (400 * Math.random()), 0, 0));
+		}
+
 		Setting setting = new Setting();
 		setting.setName("Oven_Temp");
 		setting.setValue(375);
@@ -102,12 +111,12 @@ class EsgDataApplicationTests {
 		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
 		cateringDao.save(order);
 
-		taskDao.save(new TaskItem("o1", TaskCategory.Open, "Short", "Looooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
-		taskDao.save(new TaskItem("o2", TaskCategory.Open, "Short", "Looooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
-		taskDao.save(new TaskItem("o3", TaskCategory.Open, "Short", "Looooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
-		taskDao.save(new TaskItem("alcu1", TaskCategory.ALCU, "Short", "Looooooooooooooooooooong", 13, 00, 15, 00, LocalDate.now()));
-		taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "Short", "Looooooooooooooooooooong", 13, 00, 15, 00, LocalDate.now()));
-		taskDao.save(new TaskItem("adcu1", TaskCategory.ADCU, "Short", "Looooooooooooooooooooong", 18, 30, 22, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("o1", TaskCategory.Open, "Open 1", "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("alcu1", TaskCategory.ALCU, "ALCU 1", "Looooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "ALCU 2", "Loooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, LocalDate.now()));
+		taskDao.save(new TaskItem("adcu1", TaskCategory.ADCU, "ADCU 1", "Loooooooooooooooooooooooooooooooooooooong", 18, 30, 22, 00, LocalDate.now()));
 
 		for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
 			allTaskItem.setActive(true);

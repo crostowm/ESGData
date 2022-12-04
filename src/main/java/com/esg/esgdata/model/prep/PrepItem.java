@@ -1,6 +1,5 @@
 package com.esg.esgdata.model.prep;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.Column;
@@ -21,7 +20,7 @@ public class PrepItem extends Prep implements Serializable {
     @Column
     private int unitDollarValue;
     @Column
-    private boolean isComplete;
+    private boolean complete;
 
     public PrepItem(){};
 
@@ -32,7 +31,7 @@ public class PrepItem extends Prep implements Serializable {
         this.calcToPrep = calcToPrep;
         this.numToPrep = calcToPrep;
         this.unitDollarValue = unitDollarValue;
-        isComplete = false;
+        complete = false;
     }
 
     public PrepItem(String description, String unitType, PrepType prepType, float calcToPrep)
@@ -41,7 +40,7 @@ public class PrepItem extends Prep implements Serializable {
         this.calcToPrep = calcToPrep;
         this.numToPrep = calcToPrep;
         this.unitDollarValue = -1;
-        isComplete = false;
+        complete = false;
     }
 
     public float getNumToPrep() {
@@ -69,25 +68,27 @@ public class PrepItem extends Prep implements Serializable {
         numToPrep = calcToPrep;
     }
 
-    public void setComplete(boolean isComplete)
+    public void setComplete(boolean complete)
     {
-        this.isComplete = isComplete;
+        this.complete = complete;
     }
 
     public boolean isComplete() {
-        return isComplete;
+        return complete;
     }
 
     @Override
     public String toString()
     {
         String ret = "";
-        ret += getDesc() + " " + getNumToPrep() + "/" + getCalcToPrep() + " $" + getUnitDollarValue() + "/" + getUnitType() + " : " + (isComplete? "complete":"incomplete");
+        ret += getDesc() + " " + getNumToPrep() + "/" + getCalcToPrep() + " $" + getUnitDollarValue() + "/" + getUnitType() + " : " + (complete ? "complete":"incomplete");
         return ret;
     }
 
     public LocalDate getDate() {
         return date;
     }
+
+
 }
 
