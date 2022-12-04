@@ -11,6 +11,7 @@ import com.esg.esgdata.model.daysales.DaySalesDao;
 import com.esg.esgdata.model.prep.*;
 import com.esg.esgdata.model.setting.Setting;
 import com.esg.esgdata.model.setting.SettingDao;
+import com.esg.esgdata.model.setting.Settings;
 import com.esg.esgdata.model.task.TaskCategory;
 import com.esg.esgdata.model.task.TaskDao;
 import com.esg.esgdata.model.task.TaskItem;
@@ -62,34 +63,34 @@ class EsgDataApplicationTests {
 	@Test
 	void createTables()
 	{
-		for(int ii = -1; ii > -105; ii--) {
-			daySalesDao.save(new DaySales(LocalDate.now().plusDays(ii), 1200 + (400 * Math.random()), 0, 0, 800 + (400 * Math.random()), 0, 0));
-		}
-
-		Setting setting = new Setting();
-		setting.setName("Oven_Temp");
-		setting.setValue(375);
-		settingDao.save(setting);
-
-		Setting setting2 = new Setting();
-		setting2.setName("Bread_Tray_Value");
-		setting2.setValue(220);
-		settingDao.save(setting2);
-
-		Setting setting3 = new Setting();
-		setting3.setName("Lettuce_Bin_Value");
-		setting3.setValue(600);
-		settingDao.save(setting3);
-
-		Setting setting4 = new Setting();
-		setting4.setName("Onion_Bin_Value");
-		setting4.setValue(1600);
-		settingDao.save(setting4);
-
-		Setting setting5 = new Setting();
-		setting5.setName("Wheat_Loaf_Value");
-		setting5.setValue(1000);
-		settingDao.save(setting5);
+		settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5));
+		settingDao.save(new Setting(Settings.PERC_AM_BREAD_BAKED_AT_11, .75));
+		settingDao.save(new Setting(Settings.BIN_VALUE_LETTUCE, 500));
+		settingDao.save(new Setting(Settings.BIN_VALUE_TOMATOES, 1400));
+		settingDao.save(new Setting(Settings.BIN_VALUE_ONIONS, 1600));
+		settingDao.save(new Setting(Settings.BIN_VALUE_PICKLES, 1800));
+		settingDao.save(new Setting(Settings.BIN_VALUE_CUCUMBERS, 3000));
+		settingDao.save(new Setting(Settings.TRAY_VALUE_6, 100));
+		settingDao.save(new Setting(Settings.STICK_VALUE_LJ, 500));
+		settingDao.save(new Setting(Settings.LOAF_VALUE_WHEAT, 1000));
+		settingDao.save(new Setting(Settings.TOP_DECK_HEAT, 375));
+		settingDao.save(new Setting(Settings.DECK_1_HEAT, 375));
+		settingDao.save(new Setting(Settings.DECK_2_HEAT, 375));
+		settingDao.save(new Setting(Settings.DECK_3_HEAT, 375));
+		settingDao.save(new Setting(Settings.DECK_4_HEAT, 375));
+		settingDao.save(new Setting(Settings.DECK_5_HEAT, 375));
+		settingDao.save(new Setting(Settings.PROOFER_HEAT, 110));
+		settingDao.save(new Setting(Settings.PROOFER_HUMIDITY, 75));
+		settingDao.save(new Setting(Settings.OPEN_TIME_HR, 10));
+		settingDao.save(new Setting(Settings.OPEN_TIME_MIN, 0));
+		settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_HR, 15));
+		settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_MIN, 0));
+		settingDao.save(new Setting(Settings.CLOSE_TIME_HR, 21));
+		settingDao.save(new Setting(Settings.CLOSE_TIME_MIN, 0));
+		settingDao.save(new Setting(Settings.PROJECTION_BUFFER, 1.2));
+		settingDao.save(new Setting(Settings.STORE_NUMBER, 3733));
+		settingDao.save(new Setting(2022 + Settings.FIRST_DAY_OF_YEAR, 5));
+		settingDao.save(new Setting(2023 + Settings.FIRST_DAY_OF_YEAR, 4));
 
 		staffDao.save(new Employee("John", "Smith", StaffType.Inshop));
 		staffDao.save(new Employee("Jimmy", "Bobby", StaffType.Inshop));
@@ -98,11 +99,20 @@ class EsgDataApplicationTests {
 		staffDao.save(new Employee("Kelly", "Bedder", StaffType.Inshop));
 		staffDao.save(new Employee("Ashley", "Port", StaffType.Inshop));
 
+		for(int ii = -1; ii > -105; ii--) {
+			daySalesDao.save(new DaySales(LocalDate.now().plusDays(ii), 1200 + (400 * Math.random()), 0, 0, 800 + (400 * Math.random()), 0, 0));
+		}
+
 		prepDao.save(new PrepTemplate("Lettuce", "bin", 500, PrepType.VEG, 3, true, true));
 		prepDao.save(new PrepTemplate("Tomatoes", "bin", 1200, PrepType.VEG, 3, true, true));
 		prepDao.save(new PrepTemplate("Onions", "bin", 1600, PrepType.VEG, 2, true, true));
 		prepDao.save(new PrepTemplate("Cucumbers", "bin", 3000, PrepType.VEG, 2, true, true));
 		prepDao.save(new PrepTemplate("Pickles", "bin", 1500, PrepType.VEG, 2, true, true));
+		prepDao.save(new PrepItem("Lettuce", "bin", PrepType.VEG, LocalDate.now(), 7, 500));
+		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
+		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
+		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
+		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));
 		prepDao.save(new PrepItem("Thousand Island Sauce", "bottle", PrepType.LTO, LocalDate.now(), 3, 500));
 		prepDao.save(new PrepItem("Hot Peppers", "bin", PrepType.VEG, LocalDate.now(), 3, 1500));
 
@@ -110,6 +120,11 @@ class EsgDataApplicationTests {
 		order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
 		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
 		cateringDao.save(order);
+
+		CateringOrder order2 = new CateringOrder(LocalDate.now(), 11, 30, 655);
+		order2.addCateringItem(new CateringItem(CateringType.Party_30, 2));
+		order2.addCateringItem(new CateringItem(CateringType.Box_Lunch, 50));
+		cateringDao.save(order2);
 
 		taskDao.save(new TaskItem("o1", TaskCategory.Open, "Open 1", "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
 		taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, LocalDate.now()));
