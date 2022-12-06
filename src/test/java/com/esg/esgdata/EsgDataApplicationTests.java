@@ -96,8 +96,8 @@ class EsgDataApplicationTests {
 		staffDao.save(new Employee("Jimmy", "Bobby", StaffType.Inshop));
 		staffDao.save(new Employee("Sarah", "Tough", StaffType.Inshop));
 		staffDao.save(new Employee("Bob", "Brown", StaffType.Inshop));
-		staffDao.save(new Employee("Kelly", "Bedder", StaffType.Inshop));
-		staffDao.save(new Employee("Ashley", "Port", StaffType.Inshop));
+		staffDao.save(new Employee("Kelly", "Bedder", StaffType.Driver));
+		staffDao.save(new Employee("Ashley", "Port", StaffType.Manager));
 
 		for(int ii = -1; ii > -105; ii--) {
 			daySalesDao.save(new DaySales(LocalDate.now().plusDays(ii), 1200 + (400 * Math.random()), 0, 0, 800 + (400 * Math.random()), 0, 0));
