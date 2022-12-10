@@ -28,6 +28,7 @@ public class CommentDao {
 
     public void deleteComment(int id, LocalDate date)
     {
+        System.out.println("Deletind " + id + " " + date);
         commentRepository.deleteById(new CommentId(id, date));
     }
 

@@ -44,4 +44,9 @@ public class CommentController {
     public Comment saveComment(@RequestBody Comment comment) {
         return commentDao.save(comment);
     }
+
+    @PostMapping("/comment/delete")
+    public void deleteComment(@RequestBody Comment comment) {
+        commentDao.deleteComment(comment.getId(), comment.getDate());
+    }
 }
