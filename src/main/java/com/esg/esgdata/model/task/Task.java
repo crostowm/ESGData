@@ -6,11 +6,13 @@ import java.io.Serializable;
 @MappedSuperclass
 public abstract class Task implements Serializable {
 
-    @Id @Column(length = 10)
+    @Id @Column(length = 25)
     private String taskCode;
     @Enumerated(EnumType.STRING)
     protected TaskCategory category;
-    protected String shortDesc, longDesc;
+    protected String shortDesc;
+    @Column(length = 800)
+    protected String longDesc;
     protected int startTimeHr, startTimeMin, dueTimeHr, dueTimeMin;
 
     public Task(){};

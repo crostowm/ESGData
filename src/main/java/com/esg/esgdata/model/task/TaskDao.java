@@ -39,14 +39,25 @@ public class TaskDao {
                 });
         return tasks;
     }
+    public TaskTemplate getTaskTemplate(String code) {
+        List<TaskTemplate> tasks = new ArrayList<>();
+        Streamable.of(templateRepository.findAll())
+                .forEach(task -> {
+                    if(task.getTaskCode().equals(code))
+                        tasks.add(task);
+                });
+        if(tasks.size() > 0)
+            return tasks.get(0);
+        return null;
+    }
 
     public void deleteItem(TaskId id)
     {
         itemRepository.deleteById(id);
     }
-    public void deleteTemplate(int id)
+    public void deleteTemplate(String taskCode)
     {
-        templateRepository.deleteById(id);
+        templateRepository.deleteById(taskCode);
     }
 
     public TaskItem getTaskItem(TaskId taskId) {
@@ -70,4 +81,5 @@ public class TaskDao {
                     });
             return tasks;
     }
+
 }
