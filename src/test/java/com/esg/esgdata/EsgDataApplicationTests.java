@@ -68,7 +68,7 @@ class EsgDataApplicationTests {
 	@Test
 	void createTables()
 	{
-		/*settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5));
+		settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5));
 		settingDao.save(new Setting(Settings.PERC_AM_BREAD_BAKED_AT_11, .75));
 		settingDao.save(new Setting(Settings.BIN_VALUE_LETTUCE, 500));
 		settingDao.save(new Setting(Settings.BIN_VALUE_TOMATOES, 1400));
@@ -117,7 +117,7 @@ class EsgDataApplicationTests {
 		prepDao.save(new PrepTemplate("Ham", "pack", 573, PrepType.SLICING, 4, true, true));
 		prepDao.save(new PrepTemplate("Turkey", "pack", 555, PrepType.SLICING, 4, true, true));
 		prepDao.save(new PrepTemplate("Beef", "pack", 633, PrepType.SLICING, 4, true, true));
-		prepDao.save(new PrepTemplate("Vito", "pack", 544, PrepType.SLICING, 4, true, true));*/
+		prepDao.save(new PrepTemplate("Vito", "pack", 544, PrepType.SLICING, 4, true, true));
 		/*prepDao.save(new PrepItem("Lettuce", "bin", PrepType.VEG, LocalDate.now(), 7, 500));
 		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
 		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
