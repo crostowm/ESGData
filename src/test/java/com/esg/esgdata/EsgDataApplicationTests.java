@@ -118,11 +118,6 @@ class EsgDataApplicationTests {
 		prepDao.save(new PrepTemplate("Turkey", "pack", 555, PrepType.SLICING, 4, true, true));
 		prepDao.save(new PrepTemplate("Beef", "pack", 633, PrepType.SLICING, 4, true, true));
 		prepDao.save(new PrepTemplate("Vito", "pack", 544, PrepType.SLICING, 4, true, true));
-		/*prepDao.save(new PrepItem("Lettuce", "bin", PrepType.VEG, LocalDate.now(), 7, 500));
-		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
-		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
-		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
-		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*/
 
 		//Daily Stuff
 		for(int ii = 0; ii < 7; ii++) {
@@ -140,19 +135,6 @@ class EsgDataApplicationTests {
 			order2.addCateringItem(new CateringItem(CateringType.Box_Lunch, 50));
 			cateringDao.save(order2);
 
-		/*for (int ii = 0; ii < 20; ii++) {
-			taskDao.save(new TaskItem("o" + ii, TaskCategory.Open, "Open " + ii, "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			*//*taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));*//*
-			taskDao.save(new TaskItem("alcu" + ii, TaskCategory.ALCU, "ALCU " + ii, "Looooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
-			//taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "ALCU 2", "Loooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
-			taskDao.save(new TaskItem("adcu" + ii, TaskCategory.ADCU, "ADCU " + ii, "Loooooooooooooooooooooooooooooooooooooong", 18, 30, 22, 00, date));
-		}*/
-
-		/*for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
-			allTaskItem.setActive(true);
-			taskDao.save(allTaskItem);
-		}*/
 			cashItemDao.save(new CashItem(date, 155.00, 150.00, 600.00, staffDao.getAllEmployees().get(0)));
 			cashItemDao.save(new CashItem(date, 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(1)));
 			cashItemDao.save(new CashItem(date, 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(2)));
@@ -166,6 +148,25 @@ class EsgDataApplicationTests {
 			commentDao.save(new Comment(date, "Don't forget to enter payroll ID for Alicia", Comment.NOTE));
 			commentDao.save(new Comment(date, "Circus today down the road. Might need more bread.", Comment.NOTE));
 		}
+
+		/*prepDao.save(new PrepItem("Lettuce", "bin", PrepType.VEG, LocalDate.now(), 7, 500));
+		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
+		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
+		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
+		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*/
+		/*for (int ii = 0; ii < 20; ii++) {
+			taskDao.save(new TaskItem("o" + ii, TaskCategory.Open, "Open " + ii, "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
+			*//*taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
+			taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));*//*
+			taskDao.save(new TaskItem("alcu" + ii, TaskCategory.ALCU, "ALCU " + ii, "Looooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
+			//taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "ALCU 2", "Loooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
+			taskDao.save(new TaskItem("adcu" + ii, TaskCategory.ADCU, "ADCU " + ii, "Loooooooooooooooooooooooooooooooooooooong", 18, 30, 22, 00, date));
+		}*/
+
+		/*for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
+			allTaskItem.setActive(true);
+			taskDao.save(allTaskItem);
+		}*/
 	}
 	@Test
 	void getAllSettings()
