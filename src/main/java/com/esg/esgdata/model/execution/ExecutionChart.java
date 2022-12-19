@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @IdClass(ExecutionId.class)
 public class ExecutionChart implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     private LocalDate date;
     @Id @Column(length = 6)

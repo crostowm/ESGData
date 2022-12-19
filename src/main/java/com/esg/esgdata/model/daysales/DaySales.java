@@ -2,10 +2,12 @@ package com.esg.esgdata.model.daysales;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class DaySales {
+public class DaySales implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     private LocalDate date;

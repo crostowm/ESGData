@@ -1,9 +1,11 @@
 package com.esg.esgdata.model.catering;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class CateringItem {
+public class CateringItem implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Enumerated(EnumType.STRING)
@@ -46,5 +48,18 @@ public class CateringItem {
             default:
                 return "Error Catering Type";
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "CateringItem{" +
+                "id=" + id +
+                ", cateringType=" + cateringType +
+                ", numItems=" + numItems +
+                '}';
     }
 }

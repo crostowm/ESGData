@@ -5,9 +5,10 @@ import java.io.Serializable;
 
 @MappedSuperclass
 public abstract class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id @Column(length = 25)
-    private String taskCode;
+    protected String taskCode;
     @Enumerated(EnumType.STRING)
     protected TaskCategory category;
     protected String shortDesc;

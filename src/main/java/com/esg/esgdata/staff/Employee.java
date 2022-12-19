@@ -1,9 +1,11 @@
 package com.esg.esgdata.staff;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     protected String firstName, lastName;

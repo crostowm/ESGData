@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 @Entity
 public class CashItem implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private LocalDate date;
@@ -94,5 +95,19 @@ public class CashItem implements Serializable {
 
     public void setMin(int min) {
         this.min = min;
+    }
+
+    @Override
+    public String toString() {
+        return "CashItem{" +
+                "id=" + id +
+                ", date=" + date +
+                ", r1=" + r1 +
+                ", r2=" + r2 +
+                ", safe=" + safe +
+                ", hr=" + hr +
+                ", min=" + min +
+                ", countedBy=" + countedBy +
+                '}';
     }
 }

@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class CateringOrder  implements Comparable<CateringOrder> {
+public class CateringOrder  implements Comparable<CateringOrder>, Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private LocalDate date;
     private int dueHour, dueMin;
     private double dollarValue;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinColumn(name = "ORDER_ID")
     private List<CateringItem> items = new ArrayList<>();
 
     public CateringOrder(){}
@@ -88,6 +88,18 @@ public class CateringOrder  implements Comparable<CateringOrder> {
 
     public void setItems(List<CateringItem> items) {
         this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "CateringOrder{" +
+                "id=" + id +
+                ", date=" + date +
+                ", dueHour=" + dueHour +
+                ", dueMin=" + dueMin +
+                ", dollarValue=" + dollarValue +
+                ", items=" + items +
+                '}';
     }
 }
 

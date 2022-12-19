@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @IdClass(PrepId.class)
-public class PrepItem extends Prep implements Serializable {
+public class PrepItem extends Prep {
     @Id @JsonDeserialize(as = LocalDate.class)
     LocalDate date;
 

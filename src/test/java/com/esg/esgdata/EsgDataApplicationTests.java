@@ -1,5 +1,8 @@
 package com.esg.esgdata;
 
+import com.esg.esgdata.io.Backup;
+import com.esg.esgdata.io.BackupReader;
+import com.esg.esgdata.io.TaskReader;
 import com.esg.esgdata.model.cash.CashItem;
 import com.esg.esgdata.model.cash.CashItemDao;
 import com.esg.esgdata.model.catering.CateringDao;
@@ -10,27 +13,33 @@ import com.esg.esgdata.model.comment.Comment;
 import com.esg.esgdata.model.comment.CommentDao;
 import com.esg.esgdata.model.daysales.DaySales;
 import com.esg.esgdata.model.daysales.DaySalesDao;
+import com.esg.esgdata.model.execution.ExecutionChart;
+import com.esg.esgdata.model.execution.ExecutionDao;
 import com.esg.esgdata.model.prep.*;
 import com.esg.esgdata.model.setting.Setting;
 import com.esg.esgdata.model.setting.SettingDao;
 import com.esg.esgdata.model.setting.Settings;
-import com.esg.esgdata.model.task.TaskCategory;
-import com.esg.esgdata.model.task.TaskDao;
-import com.esg.esgdata.model.task.TaskItem;
+import com.esg.esgdata.model.task.*;
 import com.esg.esgdata.staff.Employee;
 import com.esg.esgdata.staff.StaffDao;
 import com.esg.esgdata.staff.StaffType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
 class EsgDataApplicationTests {
+
+	String serverBackupFolder = "C:/Users/crost/OneDrive/Documents/Jimmy Johns/All Stores/ServerBackup";
+	private LocalDateTime testDate = LocalDateTime.of(1, 1, 1, 1, 1);
+	//private LocalDateTime testDate = LocalDateTime.now();
 
 	@Autowired
 	SettingDao settingDao;
@@ -56,6 +65,8 @@ class EsgDataApplicationTests {
 	@Autowired
 	CommentDao commentDao;
 
+	@Autowired
+	ExecutionDao executionDao;
 	@Test
 	void addSetting()
 	{
@@ -269,62 +280,124 @@ class EsgDataApplicationTests {
 	}
 
 	@Test
-	void addCateringOrder()
-	{
-		CateringOrder order = new CateringOrder(LocalDate.now(), 10, 0, 231);
-		order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
-		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
-		cateringDao.save(order);
-	}
-
-	@Test
-	void addCateringItem()
-	{
-		cateringDao.save(new CateringItem(CateringType.Mini_12, 2));
-	}
-
-	@Test
-	void addTaskItem() {
-		/*TaskItem taskItem = taskDao.getTaskItem(9);
-		System.out.println(taskItem);
-		taskItem.complete(new Employee("Jim", "Bob", StaffType.Inshop));
-		taskDao.save(taskItem);*/
-	}
-
-	@Test
 	void addCashItem() {
 		Employee employee = staffDao.getEmployeeById(10);
 		CashItem cashItem = new CashItem(LocalDate.now(), 155.00, 150.00, 600.00, employee);
 		cashItemDao.save(cashItem);
 	}
 
-/*	@Test
-	void addDayData() {
-		DayData dayData = new DayData(LocalDate.of(2022, Month.NOVEMBER, 30));
-		Employee employee = new Employee("Jim", "Bob", StaffType.Inshop);
-		dayData.addCashItem(new CashItem(LocalDate.now(), 150.00, 150.00, 600.00, employee));
-		CateringOrder order = new CateringOrder(10, 0, 231);
-		order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
-		order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
-		dayData.addPrepItem(new PrepItem("Desc", "bin", PrepType.LTO, dayData.getDate(), 3, 500));
-		dayData.addTask(new TaskItem("sl122", TaskCategory.ALCU, "Short", "Looooong", 17, 00, 20, 00, dayData.getDate()));
-		dayData.addCateringOrder(order);
-		dayData.addPraise("Praise");
-		dayData.addRedirect("Redirect");
-		dayData.addNote("Note");
-		dayDataDao.save(dayData);
-	}*/
-/*
 	@Test
-	void getDayData() {
-		List<DayData> templates = dayDataDao.getAllDayData();
-		for (DayData template : templates) {
-			System.out.println(template.toString());
+	void clearAllTables()
+	{
+		for (CashItem allCashItem : cashItemDao.getAllCashItems()) {
+			cashItemDao.delete(allCashItem.getId());
+		}
+		for (CateringOrder allCateringOrder : cateringDao.getAllCateringOrders()) {
+			cateringDao.deleteOrder(allCateringOrder.getId());
+		}
+		for (CateringItem allCateringItem : cateringDao.getAllCateringItems()) {
+			cateringDao.deleteItem(allCateringItem.getId());
+		}
+		for (Comment allComment : commentDao.getAllComments()) {
+			commentDao.deleteComment(allComment.getId(), allComment.getDate());
+		}
+		for (DaySales allDaySale : daySalesDao.getAllDaySales()) {
+			daySalesDao.deleteDaySales(allDaySale.getDate());
+		}
+		for (ExecutionChart executionChart : executionDao.getAllExecutionChart()) {
+			executionDao.deleteExecutionChart(executionChart.getDate(), executionChart.getLunchOrDinner());
+		}
+		for (PrepItem allPrepItem : prepDao.getAllPrepItems()) {
+			prepDao.deleteItem(new PrepId(allPrepItem.getDesc(), allPrepItem.getDate()));
+		}
+		for (PrepTemplate allPrepTemplate : prepDao.getAllPrepTemplates()) {
+			prepDao.deleteTemplate(allPrepTemplate.getDesc());
+		}
+		for (Setting setting : settingDao.getAllSettings()) {
+			settingDao.delete(setting.getName());
+		}
+		for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
+			taskDao.deleteItem(new TaskId(allTaskItem.getTaskCode(), allTaskItem.getDate()));
+		}
+	}
+	//IO -------------------------
+	@Test
+	void readTasks()
+	{
+		TaskReader reader = new TaskReader();
+		List<TaskTemplate> templates = reader.readTasks("C:/Users/crost/IdeaProjects/DatabaseWriter/src/main/java/res/tasks.txt");
+		System.out.println("Templates Size: " + templates.size());
+		for (TaskTemplate readTask : templates) {
+			System.out.println(readTask.toString());
+			taskDao.save(readTask);
 		}
 	}
 
 	@Test
-	void clearAllTables() {
-		dayDataDao.delete(LocalDate.of(2022, Month.NOVEMBER, 30));
-	}*/
+	void saveDatabase()
+	{
+		BackupReader backupReader = new BackupReader(serverBackupFolder);
+		Backup backup = backupReader.getBackupFromDatabase();
+		backup.setDate(testDate);
+		backup.setCashItems(cashItemDao.getAllCashItems());
+		backup.setCateringOrders(cateringDao.getAllCateringOrders());
+		backup.setComments(commentDao.getAllComments());
+		backup.setDaySales(daySalesDao.getAllDaySales());
+		backup.setEmployees(staffDao.getAllEmployees());
+		backup.setExecutionCharts(executionDao.getAllExecutionChart());
+		backup.setPrepItems(prepDao.getAllPrepItems());
+		backup.setPrepTemplates(prepDao.getAllPrepTemplates());
+		backup.setSettings(settingDao.getAllSettings());
+		backup.setTaskItems(taskDao.getAllTaskItems());
+		backup.setTaskTemplates(taskDao.getAllTaskTemplates());
+		backupReader.writeBackupToSystem(backup);
+	}
+
+	@Test
+	void readDatabaseBackup()
+	{
+		BackupReader backupReader = new BackupReader(serverBackupFolder);
+		Backup backup = backupReader.getBackupFromFileSystem(testDate);
+		System.out.println(backup.toString());
+	}
+
+	@Test
+	void uploadBackup()
+	{
+		BackupReader backupReader = new BackupReader(serverBackupFolder);
+		Backup backup = backupReader.getBackupFromFileSystem(testDate);
+		for (CashItem cashItem : backup.getCashItems()) {
+			cashItemDao.save(cashItem);
+		}
+		for (CateringOrder cateringOrder : backup.getCateringOrders()) {
+			cateringDao.save(cateringOrder);
+		}
+		for (Comment comment : backup.getComments()) {
+			commentDao.save(comment);
+		}
+		for (DaySales daySale : backup.getDaySales()) {
+			daySalesDao.save(daySale);
+		}
+		for (Employee employee : backup.getEmployees()) {
+			staffDao.save(employee);
+		}
+		for (ExecutionChart executionChart : backup.getExecutionCharts()) {
+			executionDao.save(executionChart);
+		}
+		for (PrepItem prepItem : backup.getPrepItems()) {
+			prepDao.save(prepItem);
+		}
+		for (PrepTemplate prepTemplate : backup.getPrepTemplates()) {
+			prepDao.save(prepTemplate);
+		}
+		for (Setting setting : backup.getSettings()) {
+			settingDao.save(setting);
+		}
+		for (TaskItem taskItem : backup.getTaskItems()) {
+			taskDao.save(taskItem);
+		}
+		for (TaskTemplate taskTemplate : backup.getTaskTemplates()) {
+			taskDao.save(taskTemplate);
+		}
+	}
 }

@@ -1,9 +1,11 @@
 package com.esg.esgdata.model.setting;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Setting {
+public class Setting implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id @Column(length = 50)
     private String name;
     private double value;

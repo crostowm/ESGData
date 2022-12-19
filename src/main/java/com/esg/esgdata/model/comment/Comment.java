@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Entity @IdClass(CommentId.class)
 public class Comment implements Serializable {
+    private static final long serialVersionUID = 1L;
     public final static String NOTE = "Note", PRAISE = "Praise", REDIRECT = "Redirect";
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

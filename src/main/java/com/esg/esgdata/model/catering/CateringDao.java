@@ -30,6 +30,16 @@ public class CateringDao {
         return orders;
     }
 
+    public List<CateringItem> getAllCateringItems()
+    {
+        List<CateringItem> items = new ArrayList<>();
+        Streamable.of(cateringItemRepository.findAll())
+                .forEach(item -> {
+                    items.add(item);
+                });
+        return items;
+    }
+
     public List<CateringOrder> getAllCateringOrdersForDate(LocalDate date)
     {
         List<CateringOrder> orders = new ArrayList<>();
@@ -42,6 +52,10 @@ public class CateringDao {
     }
 
     public void deleteItem(int id)
+    {
+        cateringItemRepository.deleteById(id);
+    }
+    public void deleteOrder(int id)
     {
         cateringOrderRepository.deleteById(id);
     }
