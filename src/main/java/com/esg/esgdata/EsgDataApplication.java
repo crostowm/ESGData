@@ -10,6 +10,5 @@ public class EsgDataApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EsgDataApplication.class, args);
-
     }
 }
