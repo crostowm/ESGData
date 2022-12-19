@@ -38,8 +38,6 @@ import java.util.List;
 class EsgDataApplicationTests {
 
 	String serverBackupFolder = "C:/Users/crost/OneDrive/Documents/Jimmy Johns/All Stores/ServerBackup";
-	private LocalDateTime testDate = LocalDateTime.of(1, 1, 1, 1, 1);
-	//private LocalDateTime testDate = LocalDateTime.now();
 
 	@Autowired
 	SettingDao settingDao;
@@ -164,17 +162,17 @@ class EsgDataApplicationTests {
 		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
 		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
 		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
-		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*/
-		/*for (int ii = 0; ii < 20; ii++) {
+		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*//*
+		*//*for (int ii = 0; ii < 20; ii++) {
 			taskDao.save(new TaskItem("o" + ii, TaskCategory.Open, "Open " + ii, "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			*//*taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));*//*
+			*//**//*taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
+			taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));*//**//*
 			taskDao.save(new TaskItem("alcu" + ii, TaskCategory.ALCU, "ALCU " + ii, "Looooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
 			//taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "ALCU 2", "Loooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
 			taskDao.save(new TaskItem("adcu" + ii, TaskCategory.ADCU, "ADCU " + ii, "Loooooooooooooooooooooooooooooooooooooong", 18, 30, 22, 00, date));
-		}*/
+		}*//*
 
-		/*for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
+		*//*for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
 			allTaskItem.setActive(true);
 			taskDao.save(allTaskItem);
 		}*/
@@ -313,14 +311,16 @@ class EsgDataApplicationTests {
 		for (PrepTemplate allPrepTemplate : prepDao.getAllPrepTemplates()) {
 			prepDao.deleteTemplate(allPrepTemplate.getDesc());
 		}
-		for (Setting setting : settingDao.getAllSettings()) {
+		/*for (Setting setting : settingDao.getAllSettings()) {
 			settingDao.delete(setting.getName());
-		}
+		}*/
 		for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
 			taskDao.deleteItem(new TaskId(allTaskItem.getTaskCode(), allTaskItem.getDate()));
 		}
 	}
 	//IO -------------------------
+	//private LocalDateTime testDate = LocalDateTime.of(1, 1, 1, 1, 1);
+	private LocalDateTime testDate = LocalDateTime.now();
 	@Test
 	void readTasks()
 	{
@@ -365,7 +365,8 @@ class EsgDataApplicationTests {
 	void uploadBackup()
 	{
 		BackupReader backupReader = new BackupReader(serverBackupFolder);
-		Backup backup = backupReader.getBackupFromFileSystem(testDate);
+		Backup backup = backupReader.getBackupFromFileSystem(LocalDateTime.of(2022, 12, 19, 10, 17));
+		//Backup backup = backupReader.getBackupFromFileSystem(testDate);
 		for (CashItem cashItem : backup.getCashItems()) {
 			cashItemDao.save(cashItem);
 		}
