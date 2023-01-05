@@ -1,9 +1,14 @@
 package com.esg.esgdata.model.setting;
 
 public class Settings {
-    public final static String PERC_PM_BREAD_BAKED_AT_SC = "%pmb", PERC_AM_BREAD_BAKED_AT_11 = "%amb", BIN_VALUE_LETTUCE = "bvl", BIN_VALUE_TOMATOES = "bvt",
-            BIN_VALUE_ONIONS = "bvo", BIN_VALUE_PICKLES = "bvp", BIN_VALUE_CUCUMBERS = "bvc", TRAY_VALUE_6 = "tv6", TRAY_VALUE_9 = "tv9", TRAY_VALUE_12 = "tv12",
-            STICK_VALUE_LJ = "svl", LOAF_VALUE_WHEAT = "lvw", TOP_DECK_HEAT = "tdh", DECK_1_HEAT = "d1h", DECK_2_HEAT = "d2h", DECK_3_HEAT = "d3h", DECK_4_HEAT = "d4h",
-            DECK_5_HEAT = "d5h", PROOFER_HEAT = "phe", PROOFER_HUMIDITY = "phu", OPEN_TIME_HR = "oth", OPEN_TIME_MIN = "otm", SHIFT_CHANGE_TIME_HR = "scth",
-            SHIFT_CHANGE_TIME_MIN = "sctm", CLOSE_TIME_HR = "cth", CLOSE_TIME_MIN = "ctm", PROJECTION_BUFFER = "pb", FIRST_DAY_OF_YEAR = "fdoy", STORE_NUMBER = "sn";
+    public final static String PERC_PM_BREAD_BAKED_AT_SC = "Percentage PM Bread Baked at Shift Change", PERC_AM_BREAD_BAKED_AT_11 = "Percentage AM Bread Baked at 11",
+            BIN_VALUE_LETTUCE = "Lettuce", BIN_VALUE_TOMATOES = "Tomatoes",
+            BIN_VALUE_ONIONS = "Onions", BIN_VALUE_PICKLES = "Pickles", BIN_VALUE_CUCUMBERS = "Cucumbers", TRAY_VALUE_6 = "Tray Value 6", TRAY_VALUE_9 = "Tray Value 9",
+            TRAY_VALUE_12 = "Tray Value 12",
+            STICK_VALUE_LJ = "Lil John Stick Value", LOAF_VALUE_WHEAT = "Wheat Loaf Value", TOP_DECK_HEAT = "Top Deck Heat", DECK_1_HEAT = "Deck 1 Heat",
+            DECK_2_HEAT = "Deck 2 Heat", DECK_3_HEAT = "Deck 3 Heat", DECK_4_HEAT = "Deck 4 Heat",
+            DECK_5_HEAT = "Deck 5 Heat", PROOFER_HEAT = "Proofer Heat", PROOFER_HUMIDITY = "Proofer Humidity", OPEN_TIME_HR = "oth", OPEN_TIME_MIN = "otm",
+            SHIFT_CHANGE_TIME_HR = "scth",
+            SHIFT_CHANGE_TIME_MIN = "sctm", CLOSE_TIME_HR = "cth", CLOSE_TIME_MIN = "ctm", PROJECTION_BUFFER = "Projection Buffer (1.2 = avg + 20%)",
+            FIRST_DAY_OF_YEAR = " First Day Of Year (Day of Month of Week 1 Wednesday)", STORE_NUMBER = "Store Number";
 }
