@@ -1,0 +1,213 @@
+proj_acc
+Verify projections are accurate.
+Verify all catering has been entered and that projections are accurate.
+
+open_1
+Clean oven and turn on oven/proofer
+Remove any debris and clean interior of oven.
+Turn on oven, proofer, and fill proofer pan.
+Benchmark settings are:|french_oven_heat°F for the oven and |french_proofer_heat°F for the proofer.
+
+open_2
+Complete Opening Bread Math
+Open the Opening Bread Math tab and fill out all values.
+
+open_3
+Audit refrigeration temperatures.
+Audit temperatures of the freezer and all refrigeration units to confirm that all are functioning properly.
+
+open_4
+Wrap day-old and stock cookies.
+Remove all leftover bread from the freezer; thaw, wrap, and display to sell as day-old bread. Stock all cookie boxes(always rotate product).
+
+open_5
+Audit close and fill out PM Punchlist.
+Using the Closing Procedures from last night, audit procedures for completeness and integrity on all items. Make sure punchlist is completely filled out. Write all praises and redirects on today’s PM punchlist.
+
+open_6
+Bake Wheat Bread
+Wheat Bread Preparation: Perfect wheat bread bakes in 35-40 minutes and is caramel brown (2-4 on bread ruler) and 4" wide by 4" high. Proof until the top center of the dough is a maximum of 1/4" above the pan. Benchmark settings for wheat are |wheat_top_heat° F top deck, |wheat_bottom_heat° F bottom deck (always set the timer). Bake on lowest rack(s).
+
+open_7a
+Server: Verify “Day of Business” is today.
+Power on server, verify “Day of Business” is today’s date, confirm |date.
+
+open_7b
+Power on all terminals.
+Power on all terminals, view QuickX, verify zero sales dollars are rung up.
+
+open_7c
+Macro: Check Time & Attendance.
+In Enterprise verify time is correct and authorized for previous day in “Time & Attendance.”
+
+open_7d
+Macro: Check Manager Shifts
+In Enterprise enter manager shifts in “Manager Shifts.”
+
+open_7e
+Macro: Check cash deposits.
+In Enterprise verify manager names are entered & deposit slips from bank are equal to “Cash Deposits.” YES / NO (circle one)
+
+open_8
+Make Tuna
+Check punchlist and make |tuna batch(es) of tuna.
+
+open_9
+Prep Veggies.
+See punchlist to prep vegetables.
+
+open_10
+Sauce & Oregano
+Fill the oregano shaker(s) and |sauce bottle(s) of oil and vinegar.
+
+open_11
+Set Up Cold Table.
+Remove plastic wrap from covered vegetables in the cold table. Fully stock the cold table(s) with vegetables, meats, cheese, mayo, avo, Jimmy Mustard, Dijon and all utensils.
+
+open_12
+Brew and mix Tea.
+Place 1 Lipton tea bag in brew basket and push green “Iced Tea” button to brew tea. If serving sweet tea, brew a second batch, add 6 cups of sugar and whisk.
+
+open_13
+Verify Catering.
+Verify all catering and delayed orders printed successfully with attached credit card receipts and possible tax exempt forms.
+
+open_14
+Prep drive-thru
+Put on headset; unlock the drive thru window and turn on drive-thru menu board light by the time first cycle of bread comes out of the oven.
+
+open_15
+Clean and sanitize dishes and sinks.
+Clean and sanitize the dishes, put them away. Clean sinks and area around sinks.
+
+open_16
+Sweep,mop, and take out garbage.
+Sweep and mop floor in prep area and take out garbage.
+
+open_17
+Clean the landing tables and restock.
+Clean the landing tables and restock all paper goods (credit card machine tape, napkins, bags, cups, lids, menus, gift cards, straws, sandwich stickers, sandwich wrap, paper towels and toilet paper).
+
+open_18
+Check lights.
+Check all light fixtures and replace any bulbs that do not work. Confirm that the ceiling fans are working, turn on if necessary.
+
+open_19
+Clean all glass.
+Clean all door glass, drive thru window glass, inside and out and sneezeguards (including stainless steel posts) with Windex.
+
+open_20
+Lay out all floor mats.
+Lay out all floor mats.
+
+open_21
+Sweep and clean trash outside.
+Sweep outside store front and drive thru lane and setup patio furniture if applicable. Remove any garbage visible in parking lot, then empty trash cans that are 3/4 full or more and put a new trash liner in the can.
+
+open_22
+Count drawers and safe.
+Count drawers and safe to verify accuracy.
+
+open_23
+Handle any change orders and deposits.
+Go to the bank to pick up the change order and deposit slips from the previous day. If the bank deposit slips are different from what was recorded on the DSR, or if the drawers or safe amounts are different than what was signed on line 29 of the previous shift closing procedures call your boss immediately to inform them.
+
+open_24
+Set up drawers with change.
+Set up drawers with change and lock the safe.
+
+open_25
+Verify access to ops manual(FastTrack).
+I have verified that this store’s Operations Manual is locked in the safe (or in a locked file cabinet).
+
+open_26
+Fill out your Lunch Execution Chart.
+Fill out your Lunch Execution Chart. Activate all necessary employees for the day.
+
+open_27
+Slice Wheat.
+Sharpen blade, if needed, and slice wheat loaves on the slicer.
+
+open_28
+Clean the slicer and surrounding area.
+Clean and oil the meat slicer. Clean the slicer table and surrounding area.
+
+open_29
+Audit shelf life and rotate sliced meats.
+Audit shelf life and rotate sliced meats. Prep any additional needed.
+
+open_30
+Fill sanitizer bottle(s).
+Fill all sanitizer buckets and/or bottles with approved sanitizing solution and store in approved locations.
+
+open_31
+Verify proofer pan is full of hot water.
+Audit proofer pan and confirm it is full of hot water. Use the hottest water possible to maintain humidity in the proofer.
+
+open_32
+Check your email.
+Check your email.
+
+open_33
+I have completed open by 10:30.
+I have completed opening procedures by 10:30 deadline. If not contact your boss immediately.
+
+lunch_clean_1
+Door glass and sneezeguards.
+Clean: All door glass and sneeze guards
+
+lunch_clean_2
+Soda machine, tea machine and counter
+Clean: Soda machine, tea machine and counter area
+
+lunch_clean_3
+Lobby tables, chairs and counters
+Clean: Lobby tables, chairs and counters
+
+lunch_clean_4
+Remove trash, replace liners
+Clean: Remove trash from trash receptacles, replace liners
+
+lunch_clean_5
+Restrooms
+Clean: Restrooms
+
+lunch_clean_6
+Cold Tables
+Clean: Inside and outside the top of the cold table
+
+lunch_clean_7
+Dishes, sinks and wall areas by sinks
+Clean: Dishes, sinks and wall areas by sinks
+
+lunch_clean_8
+Sweep and mop floors
+Clean: Sweep and mop floors
+
+lunch_restock_1
+Chips and cookies
+Restock: Chips and cookies – face labels and rotate product
+
+lunch_restock_2
+Fill ice bins
+Restock: Fill ice bins
+
+lunch_restock_3
+Straws / lids / napkins / bags / wraps
+Restock: Straws / lids / napkins / bags / sandwich wrap
+
+lunch_restock_4
+Toilet paper / paper towels / soap
+Restock: Toilet paper / paper towels / soap
+
+lunch_restock_5
+Dasani water coolers
+Restock: Dasani water coolers – face labels and rotate product
+
+lunch_restock_6
+Remove and charge headset batteries.
+Restock: Remove and charge headset batteries no longer in use. Total headsets accounted for ______
+
+lunch_restock_7
+Fill proofer pan with hot water
+Restock: Fill proofer pan with hot water

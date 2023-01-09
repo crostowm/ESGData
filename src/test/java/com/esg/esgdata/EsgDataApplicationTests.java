@@ -75,109 +75,6 @@ class EsgDataApplicationTests {
 	}
 
 	@Test
-	void createTables()
-	{
-		settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5));
-		settingDao.save(new Setting(Settings.PERC_AM_BREAD_BAKED_AT_11, .75));
-		settingDao.save(new Setting(Settings.BIN_VALUE_LETTUCE, 500));
-		settingDao.save(new Setting(Settings.BIN_VALUE_TOMATOES, 1400));
-		settingDao.save(new Setting(Settings.BIN_VALUE_ONIONS, 1600));
-		settingDao.save(new Setting(Settings.BIN_VALUE_PICKLES, 1800));
-		settingDao.save(new Setting(Settings.BIN_VALUE_CUCUMBERS, 3000));
-		settingDao.save(new Setting(Settings.TRAY_VALUE_6, 100));
-		settingDao.save(new Setting(Settings.STICK_VALUE_LJ, 500));
-		settingDao.save(new Setting(Settings.LOAF_VALUE_WHEAT, 1000));
-		settingDao.save(new Setting(Settings.TOP_DECK_HEAT, 375));
-		settingDao.save(new Setting(Settings.DECK_1_HEAT, 375));
-		settingDao.save(new Setting(Settings.DECK_2_HEAT, 375));
-		settingDao.save(new Setting(Settings.DECK_3_HEAT, 375));
-		settingDao.save(new Setting(Settings.DECK_4_HEAT, 375));
-		settingDao.save(new Setting(Settings.DECK_5_HEAT, 375));
-		settingDao.save(new Setting(Settings.PROOFER_HEAT, 110));
-		settingDao.save(new Setting(Settings.PROOFER_HUMIDITY, 75));
-		settingDao.save(new Setting(Settings.OPEN_TIME_HR, 10));
-		settingDao.save(new Setting(Settings.OPEN_TIME_MIN, 0));
-		settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_HR, 15));
-		settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_MIN, 0));
-		settingDao.save(new Setting(Settings.CLOSE_TIME_HR, 21));
-		settingDao.save(new Setting(Settings.CLOSE_TIME_MIN, 0));
-		settingDao.save(new Setting(Settings.PROJECTION_BUFFER, 1.2));
-		settingDao.save(new Setting(Settings.STORE_NUMBER, 3733));
-		settingDao.save(new Setting(2022 + Settings.FIRST_DAY_OF_YEAR, 5));
-		settingDao.save(new Setting(2023 + Settings.FIRST_DAY_OF_YEAR, 4));
-
-		staffDao.save(new Employee("John", "Smith", StaffType.Inshop));
-		staffDao.save(new Employee("Jimmy", "Bobby", StaffType.Inshop));
-		staffDao.save(new Employee("Sarah", "Tough", StaffType.Inshop));
-		staffDao.save(new Employee("Bob", "Brown", StaffType.Inshop));
-		staffDao.save(new Employee("Kelly", "Bedder", StaffType.Driver));
-		staffDao.save(new Employee("Ashley", "Port", StaffType.Manager));
-
-		for(int ii = -1; ii > -105; ii--) {
-			daySalesDao.save(new DaySales(LocalDate.now().plusDays(ii), 1200 + (400 * Math.random()), 0, 0, 800 + (400 * Math.random()), 0, 0));
-		}
-
-		prepDao.save(new PrepTemplate("Lettuce", "bin", 500, PrepType.VEG, 2, true, true));
-		prepDao.save(new PrepTemplate("Tomatoes", "bin", 1200, PrepType.VEG, 2, true, true));
-		prepDao.save(new PrepTemplate("Onions", "bin", 1600, PrepType.VEG, 2, true, true));
-		prepDao.save(new PrepTemplate("Cucumbers", "bin", 3000, PrepType.VEG, 2, true, true));
-		prepDao.save(new PrepTemplate("Pickles", "bin", 1500, PrepType.VEG, 2, true, true));
-		prepDao.save(new PrepTemplate("Cheese", "pack", 478, PrepType.SLICING, 4, true, true));
-		prepDao.save(new PrepTemplate("Ham", "pack", 573, PrepType.SLICING, 4, true, true));
-		prepDao.save(new PrepTemplate("Turkey", "pack", 555, PrepType.SLICING, 4, true, true));
-		prepDao.save(new PrepTemplate("Beef", "pack", 633, PrepType.SLICING, 4, true, true));
-		prepDao.save(new PrepTemplate("Vito", "pack", 544, PrepType.SLICING, 4, true, true));
-
-		//Daily Stuff
-		for(int ii = 0; ii < 7; ii++) {
-			LocalDate date = LocalDate.now().plusDays(ii);
-			prepDao.save(new PrepItem("Thousand Island Sauce", "bottle", PrepType.LTO, date, 3, 500));
-			prepDao.save(new PrepItem("Hot Peppers", "bin", PrepType.MISC, date, 3, 1500));
-
-			CateringOrder order = new CateringOrder(date, 10, 0, 231);
-			order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
-			order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
-			cateringDao.save(order);
-
-			CateringOrder order2 = new CateringOrder(date, 11, 30, 655);
-			order2.addCateringItem(new CateringItem(CateringType.Party_30, 2));
-			order2.addCateringItem(new CateringItem(CateringType.Box_Lunch, 50));
-			cateringDao.save(order2);
-
-			cashItemDao.save(new CashItem(date, 155.00, 150.00, 600.00, staffDao.getAllEmployees().get(0)));
-			cashItemDao.save(new CashItem(date, 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(1)));
-			cashItemDao.save(new CashItem(date, 150.00, 150.00, 600.00, staffDao.getAllEmployees().get(2)));
-
-			commentDao.save(new Comment(date, "Clean Bathrooms", Comment.PRAISE));
-			commentDao.save(new Comment(date, "Chips and Paper Goods Stocked", Comment.PRAISE));
-			commentDao.save(new Comment(date, "Slicing", Comment.PRAISE));
-			commentDao.save(new Comment(date, "Paperwork holes. Lol", Comment.REDIRECT));
-			commentDao.save(new Comment(date, "Dusty Register", Comment.REDIRECT));
-			commentDao.save(new Comment(date, "Dining Room Tables", Comment.REDIRECT));
-			commentDao.save(new Comment(date, "Don't forget to enter payroll ID for Alicia", Comment.NOTE));
-			commentDao.save(new Comment(date, "Circus today down the road. Might need more bread.", Comment.NOTE));
-		}
-
-		/*prepDao.save(new PrepItem("Lettuce", "bin", PrepType.VEG, LocalDate.now(), 7, 500));
-		prepDao.save(new PrepItem("Tomatoes", "bin", PrepType.VEG, LocalDate.now(), 3, 1200));
-		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
-		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
-		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*//*
-		*//*for (int ii = 0; ii < 20; ii++) {
-			taskDao.save(new TaskItem("o" + ii, TaskCategory.Open, "Open " + ii, "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			*//**//*taskDao.save(new TaskItem("o2", TaskCategory.Open, "Open 2", "Looooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
-			taskDao.save(new TaskItem("o3", TaskCategory.Open, "Open 3", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));*//**//*
-			taskDao.save(new TaskItem("alcu" + ii, TaskCategory.ALCU, "ALCU " + ii, "Looooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
-			//taskDao.save(new TaskItem("alcu2", TaskCategory.ALCU, "ALCU 2", "Loooooooooooooooooooooooooooooooooooong", 13, 00, 15, 00, date));
-			taskDao.save(new TaskItem("adcu" + ii, TaskCategory.ADCU, "ADCU " + ii, "Loooooooooooooooooooooooooooooooooooooong", 18, 30, 22, 00, date));
-		}*//*
-
-		*//*for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
-			allTaskItem.setActive(true);
-			taskDao.save(allTaskItem);
-		}*/
-	}
-	@Test
 	void getAllSettings()
 	{
 		List<Setting> settings = settingDao.getAllSettings();
@@ -325,7 +222,7 @@ class EsgDataApplicationTests {
 	void readTasks()
 	{
 		TaskReader reader = new TaskReader();
-		List<TaskTemplate> templates = reader.readTasks("C:/Users/crost/IdeaProjects/DatabaseWriter/src/main/java/res/tasks.txt");
+		List<TaskTemplate> templates = reader.readTasks("C:/Users/crost/SpringProjects/ESGData/src/main/resources/templates/tasks.txt");
 		System.out.println("Templates Size: " + templates.size());
 		for (TaskTemplate readTask : templates) {
 			System.out.println(readTask.toString());

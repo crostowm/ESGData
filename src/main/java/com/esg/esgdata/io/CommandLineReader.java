@@ -14,12 +14,10 @@ import com.esg.esgdata.model.execution.ExecutionChart;
 import com.esg.esgdata.model.execution.ExecutionDao;
 import com.esg.esgdata.model.prep.*;
 import com.esg.esgdata.model.setting.Setting;
+import com.esg.esgdata.model.setting.SettingCategory;
 import com.esg.esgdata.model.setting.SettingDao;
 import com.esg.esgdata.model.setting.Settings;
-import com.esg.esgdata.model.task.TaskCategory;
-import com.esg.esgdata.model.task.TaskDao;
-import com.esg.esgdata.model.task.TaskId;
-import com.esg.esgdata.model.task.TaskItem;
+import com.esg.esgdata.model.task.*;
 import com.esg.esgdata.staff.Employee;
 import com.esg.esgdata.staff.StaffDao;
 import com.esg.esgdata.staff.StaffType;
@@ -35,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 @Service
@@ -80,7 +79,9 @@ public class CommandLineReader {
                 "\nCreate fake tables of data" +
                 "\n\tcft" +
                 "\nCreate PDF" +
-                "\n\tpdf";
+                "\n\tpdf m d yyyy" +
+                "\nRead tasks from file and upload to DB" +
+                "\n\trt";
         Scanner keyboard = new Scanner(System.in);
         String line;
         while (true) {
@@ -113,11 +114,23 @@ public class CommandLineReader {
                         if (tokens.length > 3)
                             writePDF(tokens[1], tokens[2], tokens[3]);
                         break;
+                    case "rt":
+                        readTasks();
                 }
             }
         }
         System.out.println("End of keyboard reading");
         keyboard.close();
+    }
+
+    private void readTasks() {
+        TaskReader reader = new TaskReader();
+        List<TaskTemplate> templates = reader.readTasks("C:/Users/crost/SpringProjects/ESGData/src/main/resources/templates/tasks.txt");
+        System.out.println("Templates Size: " + templates.size());
+        for (TaskTemplate readTask : templates) {
+            System.out.println(readTask.toString());
+            taskDao.save(readTask);
+        }
     }
 
     private void writePDF(String month, String day, String year) {
@@ -152,9 +165,15 @@ public class CommandLineReader {
                         case "open_cashdep_yes":
                             field.setValue("O");
                             break;
+                        case "bin_tuna":
+                            field.setValue(String.format("%.2f", prepDao.getPrepItemForDate(date, "Tuna").getNumToPrep()));
                         default:
-                            if (taskItem.getTaskCode().equals(fieldName))
-                                field.setValue(taskItem.getCompletedBy().getInitials());
+                            if (taskItem.getTaskCode().equals(fieldName)) {
+                                if(taskItem.getCompletedBy() != null)
+                                    field.setValue(taskItem.getCompletedBy().getInitials());
+                                else
+                                    field.setValue("X");
+                            }
 
                     }
                 }
@@ -202,37 +221,40 @@ public class CommandLineReader {
         for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
             taskDao.deleteItem(new TaskId(allTaskItem.getTaskCode(), allTaskItem.getDate()));
         }
+        for (Employee allEmployee : staffDao.getAllEmployees()) {
+            staffDao.delete(allEmployee.getId());
+        }
     }
 
     private void createFakeTables() {
-        settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5));
-        settingDao.save(new Setting(Settings.PERC_AM_BREAD_BAKED_AT_11, .75));
-        settingDao.save(new Setting(Settings.BIN_VALUE_LETTUCE, 500));
-        settingDao.save(new Setting(Settings.BIN_VALUE_TOMATOES, 1400));
-        settingDao.save(new Setting(Settings.BIN_VALUE_ONIONS, 1600));
-        settingDao.save(new Setting(Settings.BIN_VALUE_PICKLES, 1800));
-        settingDao.save(new Setting(Settings.BIN_VALUE_CUCUMBERS, 3000));
-        settingDao.save(new Setting(Settings.TRAY_VALUE_6, 100));
-        settingDao.save(new Setting(Settings.STICK_VALUE_LJ, 500));
-        settingDao.save(new Setting(Settings.LOAF_VALUE_WHEAT, 1000));
-        settingDao.save(new Setting(Settings.TOP_DECK_HEAT, 375));
-        settingDao.save(new Setting(Settings.DECK_1_HEAT, 375));
-        settingDao.save(new Setting(Settings.DECK_2_HEAT, 375));
-        settingDao.save(new Setting(Settings.DECK_3_HEAT, 375));
-        settingDao.save(new Setting(Settings.DECK_4_HEAT, 375));
-        settingDao.save(new Setting(Settings.DECK_5_HEAT, 375));
-        settingDao.save(new Setting(Settings.PROOFER_HEAT, 110));
-        settingDao.save(new Setting(Settings.PROOFER_HUMIDITY, 75));
-        settingDao.save(new Setting(Settings.OPEN_TIME_HR, 10));
-        settingDao.save(new Setting(Settings.OPEN_TIME_MIN, 0));
-        settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_HR, 15));
-        settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_MIN, 0));
-        settingDao.save(new Setting(Settings.CLOSE_TIME_HR, 21));
-        settingDao.save(new Setting(Settings.CLOSE_TIME_MIN, 0));
-        settingDao.save(new Setting(Settings.PROJECTION_BUFFER, 1.2));
-        settingDao.save(new Setting(Settings.STORE_NUMBER, 3733));
-        settingDao.save(new Setting(2022 + Settings.FIRST_DAY_OF_YEAR, 5));
-        settingDao.save(new Setting(2023 + Settings.FIRST_DAY_OF_YEAR, 4));
+        settingDao.save(new Setting(Settings.PERC_PM_BREAD_BAKED_AT_SC, .5, SettingCategory.MISC));
+        settingDao.save(new Setting(Settings.PERC_AM_BREAD_BAKED_AT_11, .75, SettingCategory.MISC));
+        settingDao.save(new Setting(Settings.BIN_VALUE_LETTUCE, 500, SettingCategory.BIN));
+        settingDao.save(new Setting(Settings.BIN_VALUE_TOMATOES, 1400, SettingCategory.BIN));
+        settingDao.save(new Setting(Settings.BIN_VALUE_ONIONS, 1600, SettingCategory.BIN));
+        settingDao.save(new Setting(Settings.BIN_VALUE_PICKLES, 1800, SettingCategory.BIN));
+        settingDao.save(new Setting(Settings.BIN_VALUE_CUCUMBERS, 3000, SettingCategory.BIN));
+        settingDao.save(new Setting(Settings.TRAY_VALUE_6, 100, SettingCategory.BREAD));
+        settingDao.save(new Setting(Settings.STICK_VALUE_LJ, 500, SettingCategory.BREAD));
+        settingDao.save(new Setting(Settings.LOAF_VALUE_WHEAT, 1000, SettingCategory.BREAD));
+        settingDao.save(new Setting(Settings.TOP_DECK_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.DECK_1_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.DECK_2_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.DECK_3_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.DECK_4_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.DECK_5_HEAT, 375, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.PROOFER_HEAT, 110, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.PROOFER_HUMIDITY, 75, SettingCategory.OVEN));
+        settingDao.save(new Setting(Settings.OPEN_TIME_HR, 10, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.OPEN_TIME_MIN, 0, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_HR, 15, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.SHIFT_CHANGE_TIME_MIN, 0, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.CLOSE_TIME_HR, 21, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.CLOSE_TIME_MIN, 0, SettingCategory.TIME));
+        settingDao.save(new Setting(Settings.PROJECTION_BUFFER, 1.2, SettingCategory.MISC));
+        settingDao.save(new Setting(Settings.STORE_NUMBER, 3733, SettingCategory.MISC));
+        settingDao.save(new Setting(2022 + Settings.FIRST_DAY_OF_YEAR, 5, SettingCategory.MISC));
+        settingDao.save(new Setting(2023 + Settings.FIRST_DAY_OF_YEAR, 4, SettingCategory.MISC));
 
         staffDao.save(new Employee("John", "Smith", StaffType.Inshop));
         staffDao.save(new Employee("Jimmy", "Bobby", StaffType.Inshop));
@@ -251,13 +273,15 @@ public class CommandLineReader {
             order.addCateringItem(new CateringItem(CateringType.Mini_12, 2));
             order.addCateringItem(new CateringItem(CateringType.Party_18, 4));
             cateringDao.save(order);
-            daySalesDao.getDaySales(date).addCatering(true, order.getDollarValue());
+            DaySales ds = daySalesDao.getDaySales(date);
+            ds.addCatering(true, order.getDollarValue());
 
             CateringOrder order2 = new CateringOrder(LocalDate.now().plusDays(ii), 11, 30, 655);
             order2.addCateringItem(new CateringItem(CateringType.Party_30, 2));
             order2.addCateringItem(new CateringItem(CateringType.Box_Lunch, 50));
             cateringDao.save(order2);
-            daySalesDao.getDaySales(date).addCatering(true, order2.getDollarValue());
+            ds.addCatering(true, order2.getDollarValue());
+            daySalesDao.save(ds);
         }
         prepDao.save(new PrepTemplate("Lettuce", "bin", 500, PrepType.VEG, 2, true, true));
         prepDao.save(new PrepTemplate("Tomatoes", "bin", 1200, PrepType.VEG, 2, true, true));
@@ -269,6 +293,8 @@ public class CommandLineReader {
         prepDao.save(new PrepTemplate("Turkey", "pack", 555, PrepType.SLICING, 4, true, true));
         prepDao.save(new PrepTemplate("Beef", "pack", 633, PrepType.SLICING, 4, true, true));
         prepDao.save(new PrepTemplate("Vito", "pack", 544, PrepType.SLICING, 4, true, true));
+        prepDao.save(new PrepTemplate("Tuna", "batch", 2000, PrepType.MISC, 4, true, true));
+        prepDao.save(new PrepTemplate("Sauce", "bottle", 700, PrepType.MISC, 2, true, true));
 
         //Daily Stuff
         for (int ii = 0; ii < 7; ii++) {
@@ -295,7 +321,7 @@ public class CommandLineReader {
 		prepDao.save(new PrepItem("Onions", "bin", PrepType.VEG, LocalDate.now(), 2, 1600));
 		prepDao.save(new PrepItem("Cucumbers", "bin", PrepType.VEG, LocalDate.now(), 2, 1500));
 		prepDao.save(new PrepItem("Pickles", "bin", PrepType.VEG, LocalDate.now(), 1, 3000));*/
-        for (int ii = 0; ii < 20; ii++) {
+        /*for (int ii = 0; ii < 20; ii++) {
             LocalDate date = LocalDate.now().plusDays(ii);
             taskDao.save(new TaskItem("open_1", TaskCategory.Open, "Open " + ii, "Loooooooooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
             taskDao.save(new TaskItem("open_3", TaskCategory.Open, "Open 2", "Loooooooooooooooooooooooooooooooooooooooong", 04, 00, 10, 00, date));
@@ -313,9 +339,8 @@ public class CommandLineReader {
 
         for (TaskItem allTaskItem : taskDao.getAllTaskItems()) {
             allTaskItem.setActive(true);
-            allTaskItem.setCompletedBy(new Employee("James", "Johnson", StaffType.Inshop));
             taskDao.save(allTaskItem);
-        }
+        }*/
     }
 
     private void readDatabaseBackup(int month, int day, int year, int hour, int minute) {

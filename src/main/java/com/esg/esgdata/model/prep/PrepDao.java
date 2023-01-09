@@ -20,10 +20,12 @@ public class PrepDao {
     public PrepItem save(PrepItem prepItem) {
         return itemRepository.save(prepItem);
     }
-    public PrepTemplate save(PrepTemplate prepTemplate) { return templateRepository.save(prepTemplate);}
 
-    public List<PrepItem> getAllPrepItems()
-    {
+    public PrepTemplate save(PrepTemplate prepTemplate) {
+        return templateRepository.save(prepTemplate);
+    }
+
+    public List<PrepItem> getAllPrepItems() {
         List<PrepItem> preps = new ArrayList<>();
         Streamable.of(itemRepository.findAll())
                 .forEach(prep -> {
@@ -32,8 +34,7 @@ public class PrepDao {
         return preps;
     }
 
-    public List<PrepTemplate> getAllPrepTemplates()
-    {
+    public List<PrepTemplate> getAllPrepTemplates() {
         List<PrepTemplate> preps = new ArrayList<>();
         Streamable.of(templateRepository.findAll())
                 .forEach(prep -> {
@@ -42,12 +43,11 @@ public class PrepDao {
         return preps;
     }
 
-    public void deleteItem(PrepId prepId)
-    {
+    public void deleteItem(PrepId prepId) {
         itemRepository.deleteById(prepId);
     }
-    public void deleteTemplate(String name)
-    {
+
+    public void deleteTemplate(String name) {
         templateRepository.deleteById(name);
     }
 
@@ -55,9 +55,21 @@ public class PrepDao {
         List<PrepItem> preps = new ArrayList<>();
         Streamable.of(itemRepository.findAll())
                 .forEach(prep -> {
-                    if(prep.getDate().equals(date))
+                    if (prep.getDate().equals(date))
                         preps.add(prep);
                 });
         return preps;
+    }
+
+    public PrepItem getPrepItemForDate(LocalDate date, String desc) {
+        List<PrepItem> preps = new ArrayList<>();
+        Streamable.of(itemRepository.findAll())
+                .forEach(prep -> {
+                    if (prep.getDate().equals(date) && prep.getDesc().equals(desc))
+                        preps.add(prep);
+                });
+        if (preps.size() > 0)
+            return preps.get(0);
+        return null;
     }
 }

@@ -10,5 +10,6 @@ public class Settings {
             DECK_5_HEAT = "Deck 5 Heat", PROOFER_HEAT = "Proofer Heat", PROOFER_HUMIDITY = "Proofer Humidity", OPEN_TIME_HR = "oth", OPEN_TIME_MIN = "otm",
             SHIFT_CHANGE_TIME_HR = "scth",
             SHIFT_CHANGE_TIME_MIN = "sctm", CLOSE_TIME_HR = "cth", CLOSE_TIME_MIN = "ctm", PROJECTION_BUFFER = "Projection Buffer (1.2 = avg + 20%)",
-            FIRST_DAY_OF_YEAR = " First Day Of Year (Day of Month of Week 1 Wednesday)", STORE_NUMBER = "Store Number";
+    // (Day of Month of Week 1 Wednesday)
+    FIRST_DAY_OF_YEAR = "First Day Of Year", STORE_NUMBER = "Store Number";
 }
